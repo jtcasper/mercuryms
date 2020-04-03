@@ -1,0 +1,10 @@
+[Unit]
+Description=MercuryMS Webhook Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/mercuryms/bin/python /opt/mercuryms/mms-download.py
+
+[Install]
+WantedBy=multi-user.target
