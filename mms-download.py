@@ -1,3 +1,4 @@
+import os
 import requests
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
@@ -18,4 +19,6 @@ def sms_reply():
     return str(resp)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=9092, debug=True)
+    env_port = os.environ.get("MERCURYMS_PORT")
+    port = int(env_port) if env_port is not None else 9092
+    app.run(host='0.0.0.0', port=port, debug=True)

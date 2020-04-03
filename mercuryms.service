@@ -5,6 +5,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/opt/mercuryms/bin/python /opt/mercuryms/mms-download.py
+Environment="MERCURYMS_PORT=9092"
 
 [Install]
 WantedBy=multi-user.target
