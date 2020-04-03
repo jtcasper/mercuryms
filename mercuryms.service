@@ -7,6 +7,7 @@ Type=simple
 User=mercuryms
 Group=mercuryms
 WorkingDirectory=/usr/share/mercuryms
+StandardOutput=syslog
 ExecStart=/opt/mercuryms/bin/python /opt/mercuryms/mms-download.py
 Environment="MERCURYMS_PORT=9092"
 
