@@ -1,5 +1,5 @@
 import os
-import requests
+import sqlite3
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 
@@ -8,12 +8,17 @@ app = Flask(__name__)
 @app.route("/mms", methods=['POST'])
 def sms_reply():
     """Respond to incoming multimedia messages with a confirmed download text."""
+    sender = request.form['From']
     if request.form['NumMedia'] is not None:
         urls = [request.form['MediaUrl' + str(idx)] for idx in range(int(request.form['NumMedia']))]
-    photos = {url.split("/")[-1]: requests.get(url) for url in urls}
-    for identifier, photo in photos.items():
-        with open(identifier + '.jpg', 'wb') as f:
-            f.write(photo.content)
+
+    conn = sqlite3.connect("mercuryms.sqlite")
+    cursor = conn.cursor()
+    for url in urls:
+        cursor.execute('INSERT INTO MEDIA (PHONE_NUMBER, URI) VALUES (?, ?)', (sender, url))
+    conn.commit()
+    conn.close()
+
     resp = MessagingResponse()
     resp.message("Upload received!")
     return str(resp)
