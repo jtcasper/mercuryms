@@ -9,3 +9,4 @@ sqlite3 /usr/share/mercuryms/mercuryms.sqlite "$(cat migrations/*)"
 chown mercuryms:mercuryms /usr/share/mercuryms/mercuryms.sqlite
 cp mercuryms.service /etc/systemd/system/
 cp mercuryms-listen* /etc/systemd/system/
+cp mercuryms-send* /etc/systemd/system/

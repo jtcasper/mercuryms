@@ -1,0 +1,17 @@
+[Unit]
+Description=MercuryMS Send Service
+After=network.target mercuryms-send.timer
+Requires=mercuryms-send.timer
+
+[Service]
+Type=oneshot
+User=mercuryms
+Group=mercuryms
+WorkingDirectory=/usr/share/mercuryms
+ExecStart=/opt/mercuryms/send.sh
+Environment="HOST=localhost"
+Environment="PORT=9099"
+Environment="TIMEOUT_SECONDS=45"
+
+[Install]
+WantedBy=multi-user.target

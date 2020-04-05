@@ -1,0 +1,10 @@
+[Unit]
+Description=MercuryMS Timed Media Send
+After=network.target
+
+[Timer]
+OnActiveSec=1m
+Unit=mercuryms-send.service
+
+[Install]
+WantedBy=multi-user.target
