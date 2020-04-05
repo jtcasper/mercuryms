@@ -8,12 +8,19 @@ while IFS='|' read -a DATA DATA_STR; do
     # WebDAV responds to a PROPFIND with a 207 if a resource exists.
     # It responds 404 otherwise, but we will attempt to create on any other code.
     # AWK exits with inverted exit codes to use the && bash short circuit.
-    curl --silent --include --user $USER:$($PW_COMMAND) "$HOST/remote.php/dav/files/$USER/${DATA[1]}" -X PROPFIND --data '<?xml version="1.0" encoding="UTF-8"?>
+    curl --silent \
+         --include \
+         --user $USER:$($PW_COMMAND) \
+         "$HOST/remote.php/dav/files/$USER/${DATA[1]}" \
+         -X PROPFIND \
+         --data '<?xml version="1.0" encoding="UTF-8"?>
  <d:propfind xmlns:d="DAV:">
-   <d:prop xmlns:oc="http://owncloud.org/ns">
+   <d:prop>
      <d:resourcetype/>
    </d:prop>
- </d:propfind>' | awk '/HTTP\// {if ($2 == "207") { exit 1; } else { exit 0; } }' && curl --silent \
+ </d:propfind>' \
+    | awk '/HTTP\// {if ($2 == "207") { exit 1; } else { exit 0; }}' \
+    && curl --silent \
             --user $USER:$($PW_COMMAND) \
             -X MKCOL "$HOST/remote.php/dav/files/$USER/${DATA[1]}"
     # Download the media we were sent from the URI.
