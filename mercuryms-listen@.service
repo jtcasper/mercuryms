@@ -1,0 +1,21 @@
+[Unit]
+Description=MercuryMS Listen Service
+After=network.target mercuryms-listen.socket
+Requires=mercuryms-listen.socket
+
+[Service]
+Type=oneshot
+User=mercuryms
+Group=mercuryms
+WorkingDirectory=/usr/share/mercuryms
+ExecStart=/opt/mercuryms/listener.sh
+StandardInput=socket
+StandardOutput=socket
+Environment="USER=admin"
+Environment="HOST=localhost:9092"
+# If overriding, should output to stdout similarly to printf
+Environment="PW_COMMAND=printf admin"
+
+
+[Install]
+WantedBy=multi-user.target

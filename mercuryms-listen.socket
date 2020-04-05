@@ -1,0 +1,10 @@
+[Unit]
+Description=MercuryMS Listen Socket
+PartOf=mercuryms-listen@.service
+
+[Socket]
+ListenStream=9099
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
