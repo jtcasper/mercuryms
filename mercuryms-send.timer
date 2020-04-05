@@ -3,7 +3,8 @@ Description=MercuryMS Timed Media Send
 After=network.target
 
 [Timer]
-OnActiveSec=1m
+OnActiveSec=1s
+OnUnitActiveSec=1m
 Unit=mercuryms-send.service
 
 [Install]
