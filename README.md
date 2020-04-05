@@ -8,6 +8,7 @@ This tool provides a way to text images to a Twilio webhook and store them on a 
 
 - systemd
 - sqlite3
+- python (3.7+ is all that's tested)
 
 ## Usage
 
